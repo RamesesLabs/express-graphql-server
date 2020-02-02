@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
 // bind express with graphql
 app.use('/graphql', graphqlHTTP({
   schema: schema,
-  rootValue: root,
+  
   graphiql: true,
 }));
 
