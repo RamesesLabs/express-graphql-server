@@ -8,7 +8,7 @@ const app = express();
 // Connect to ModgoDB Atlas
 // connect to mlab database
 // make sure to replace my db string & creds with your own
-mongoose.connect('mongodb+srv://<user>:<password>@<yourURI')     
+mongoose.connect('mongodb://brad:Password1@ds213079.mlab.com:13079/rocographql')     
 mongoose.connection.once('open', () => {
   console.log('conneted to database');
 });
