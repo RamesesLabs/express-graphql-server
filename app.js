@@ -6,37 +6,19 @@ const mongoose = require('mongoose');
 const app = express();
 
 // Connect to ModgoDB Atlas
-const connectDB = async () => {
-  try {
-      await mongoose.connect('mongodb+srv://<user>:<password>@<yourURI>', {
-          useNewUrlParser: true,
-          useCreateIndex: true,
-          useUnifiedTopology: true,
-          useFindAndModify: false
-      });     
-  } catch (err) {
-      console.error(err.message);
-      process.exit(1);
-  }
-};
-
+// connect to mlab database
+// make sure to replace my db string & creds with your own
+mongoose.connect('mongodb+srv://<user>:<password>@<yourURI')     
 mongoose.connection.once('open', () => {
-  console.log('connected to database');
-});
-
-
-
-app.get('/', (req, res) => {
-  res.send('Hello World!')
+  console.log('conneted to database');
 });
 
 // bind express with graphql
 app.use('/graphql', graphqlHTTP({
-  schema: schema,
-  
-  graphiql: true,
+  schema: schema,  
+  graphiql: true
 }));
 
-app.listen(8000, () => {
-  console.log('Example app listening on port 8000!')
+app.listen(4000, () => {
+  console.log('Example app listening on port 4000!')
 });
