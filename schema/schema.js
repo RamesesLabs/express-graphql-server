@@ -9,7 +9,8 @@ const {
     GraphQLSchema,
     GraphQLID,
     GraphQLInt,
-    GraphQLList
+    GraphQLList,
+    GraphQLNonNull
 } = graphql;
 
 const ArticleType = new GraphQLObjectType({
@@ -67,12 +68,14 @@ const RootQuery = new GraphQLObjectType({
             type: new GraphQLList(ArticleType),
             resolve(parent, args){
                 //return books;
+                return Article.find({});
             }
         },
         authors: {
             type: new GraphQLList(AuthorType),
             resolve(parent, args){
                 //return authors;
+                return Author.find({});
             }
         }
     }
@@ -84,8 +87,8 @@ const Mutation = new GraphQLObjectType({
         addAuthor: {
             type: AuthorType,
             args: {
-                name: { type: GraphQLString },
-                age: { type: GraphQLInt }
+                name: { type: new GraphQLNonNull(GraphQLString) },
+                age: { type: new GraphQLNonNull(GraphQLInt) }
             },
             resolve(parent, args){
                 let author = new Author({
@@ -98,9 +101,9 @@ const Mutation = new GraphQLObjectType({
         addArticle: {
             type: ArticleType,
             args: {
-                name: { type: GraphQLString },
-                genre: { type: GraphQLString },
-                authorId: { type: GraphQLID }
+                name: { type: new GraphQLNonNull(GraphQLString) },
+                genre: { type: new GraphQLNonNull(GraphQLString) },
+                authorId: { type: new GraphQLNonNull(GraphQLID) }
             },
             resolve(parent, args){
                 let article = new Article({
